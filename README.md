@@ -1,7 +1,7 @@
 Hugo Nuo
 ========
 
-Hugo Nuo is an responsive light & clean hugo theme for blogger. This theme features several page layout, like an [about page](https://laozhu.me/about/) for your portfolio, a [links page](https://laozhu.me/links/) for your friends' blog, a [tags page](https://laozhu.me/tags/) for your tags cloud, a works page is under development. This theme makes many third-party hugo shortcodes, including [Codepen](https://codepen.io/), [JSFiddle](https://jsfiddle.net/), [Video.js](http://videojs.com/), ~~Music 163~~ and [Sheng Xiang](https://ppt.baomitu.com/).
+Hugo Nuo is an responsive light & clean hugo theme for blogger. This theme features several page layout, like an [about page](https://laozhu.me/about/) for your portfolio, a [links page](https://laozhu.me/links/) for your friends' blog, a [tags page](https://laozhu.me/tags/) for your tags cloud, a works page is under development. This theme makes many third-party hugo shortcodes, including [Codepen](https://codepen.io/), [JSFiddle](https://jsfiddle.net/), [Video.js](http://videojs.com/), ~~Music 163~~ and [Sheng Xiang](https://ppt.baomitu.com/), [Asciinema](https://asciinema.org/).
 
 ![Hugo Nuo Theme Screenshot](https://raw.githubusercontent.com/laozhu/hugo-nuo/master/images/screenshot.png)
 
@@ -247,43 +247,69 @@ Write something about you here.
 
 Write your portfolio as a post here, if you want comments in about page, you should turn comments to `true`.
 
-## Build
+### The resume page
 
-If you want to modify styles and scripts by yourself, you should install dev packages by `npm install`, I use [sass](http://sass-lang.com/) for styles development, [rollup](https://github.com/rollup/rollup) for scripts development, inside the folder of your Hugo site run:
+Inside the folder of your Hugo site run:
 
 ```bash
-# Install dependences
-$ cd themes/hugo-nuo
-$ npm install
-
-# Scripts dev
-$ npm run dev
-$ npm run build
-
-# Styles dev
-$ npm run sass
-
-# Copy fonts to static
-$ npm run fonts
-
-# Copy images to static
-$ npm run images
-
-# Scripts lint
-$ npm run eslint
-
-# Styles lint
-$ npm run stylelint
-
-# Minify images
-$ npm run imagemin
+$ hugo new resume.md
+$ cat << EOF > content/resume.md
+---
+title: "Resume"
+date: 2017-12-01
+layout: "resume"
+---
+EOF
 ```
 
-If you want to build hugo-nuo theme, you should have `node` and `npm` evironment installed. Besides, you should have dependencies below installed.
+Then create a file at `data/resume.toml`, where the resume page reads data from.
+You can reference
+[exampleSite/data/resume.toml](https://github.com/laozhu/hugo-nuo/tree/master/exampleSite/data/resume.toml)
+for how to construct your resume.
 
-* [ImageOptim](https://imageoptim.com/) - Makes images load faster
-* [SASS](http://sass-lang.com/install) - Ruby version SASS compiler
-* [Pygments](http://pygments.org/) - Python syntax hightlighter
+The resume page will be located at `/resume` off your website root. Different
+from the about page, the resume page is intended as a one pager that you
+can print out for job hunting.
+
+## Build
+
+> **⚠️ Big Change**
+>
+> npm => yarn
+>
+> rollup => webpack
+>
+> SASS => PostCSS
+
+In the new build system, I use webpack to generate dist files and a `manifest.json` file which lists all dist scripts and styles, then I use hugo data template to read the `manifest.json` content and insert them into the html layout. In this way I can use webpack chunkHash for browser cache and I don't need to change the layout.
+
+```bash
+# Install all dependences
+$ cd themes/hugo-nuo
+$ yarn
+
+# Development watch
+$ yarn dev
+
+# Build static files for production
+$ yarn build
+
+# Scripts lint and autofix
+$ yarn eslint
+$ yarn eslint:fix
+
+# Styles lint and autofix
+$ yarn stylelint
+$ yarn stylelint:fix
+
+# Minify images
+$ yarn imagemin
+
+# Clean
+$ yarn clean
+```
+
+I use [ImageOptim](https://imageoptim.com/) to make images load faster, you should install this app before you run `yarn imagemin` script.
 
 *From Hugo 0.28, the default syntax hightlighter in Hugo is [Chroma](https://github.com/alecthomas/chroma); it is built in Go and is really, really fast – and for the most important parts compatible with [Pygments](http://pygments.org/).*
 

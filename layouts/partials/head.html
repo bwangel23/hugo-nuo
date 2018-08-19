@@ -23,6 +23,13 @@
     <meta name="twitter:image" content="{{ $avatar | absURL }}" />
   {{ end }}
 
+  <!-- Facebook Open Graph -->
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="{{ .Title }}" />
+  <meta property="og:description" content="{{ .Summary | plainify }}" />
+  <meta property="og:url" content="{{ .Permalink }}" />
+  <meta property="og:image" content="{{ if isset .Params "cover" }}{{ .Params.cover | absURL }}{{ else }}{{ $avatar | absURL }}{{ end }}" />
+
 {{ else }}
 
   <!-- Site Author & Description -->
@@ -36,6 +43,13 @@
   <meta name="twitter:description" content="{{ .Site.Params.description }}" />
   <meta name="twitter:image" content="{{ $avatar | absURL }}" />
 
+  <!-- Facebook Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="{{ if isset .Site.Params "seotitle" }}{{ .Site.Params.seotitle }}{{ else }}{{ .Site.Title }}{{ end }}" />
+  <meta property="og:description" content="{{ .Site.Params.description }}" />
+  <meta property="og:url" content="{{ .Permalink }}" />
+  <meta property="og:image" content="{{ $avatar | absURL }}" />
+
 {{ end }}
 
 <!-- Site Generator -->
@@ -43,7 +57,9 @@
 
 <!-- Permalink & RSSlink -->
 <link rel="canonical" href="{{ .Permalink }}" />
-<link rel="alternative" href="{{ "/index.xml" | relURL }}" title="{{ .Site.Title }}" type="application/atom+xml" />
+{{ range .AlternativeOutputFormats -}}
+  {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
+{{ end -}}
 
 <!-- Rending Prefs -->
 <meta name="renderer" content="webkit" />
@@ -79,4 +95,4 @@
 {{ if ne .Kind "home" }}
 <link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
 {{ end }}
-<link rel="stylesheet" href="{{ "/css/bundle.css" | relURL }}" />
+<link rel="stylesheet" href="{{ index .Site.Data.manifest "bundle.css" | relURL }}" />
