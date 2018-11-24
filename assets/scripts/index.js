@@ -1,5 +1,3 @@
-import './styles/main.css';
-
 // Selected DOM elements
 const html = document.querySelector('html');
 const body = document.querySelector('body');
@@ -33,10 +31,6 @@ const randomErrorEmoji = () => {
 };
 randomErrorEmoji();
 
-// Object-fit polyfill for post cover
-/* eslint-disable no-undef */
-objectFitImages('img.post-cover');
-
 // Show toTopBtn when scroll to 600px
 /* eslint-disable no-undef */
 let lastPosition = 0;
@@ -61,6 +55,3 @@ const scroll = new SmoothScroll('a[href*="#"]');
 toTopBtn.addEventListener('click', () => {
   scroll.animateScroll(0);
 });
-
-// HMR interface
-if (module.hot) module.hot.accept();

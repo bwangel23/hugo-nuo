@@ -75,7 +75,7 @@ The following social network icons are available:
   twitter = "twitter_username"
   linkedin = "linkedin_username"
   weibo = "weibo_username"
-  wechat= "/img/qrcode.jpg" # Replace with your wechat qrcode image
+  wechat= "/images/qrcode.jpg" # Replace with your wechat qrcode image
   facebook = "facebook_username"
   google = "googlplus_id_number"
   instagram = "instagram_username"
@@ -275,39 +275,9 @@ can print out for job hunting.
 
 > **⚠️ Big Change**
 >
-> npm => yarn
->
-> rollup => webpack
->
-> SASS => PostCSS
+> This theme has been using hugo pipes instead of webpack now.
 
-In the new build system, I use webpack to generate dist files and a `manifest.json` file which lists all dist scripts and styles, then I use hugo data template to read the `manifest.json` content and insert them into the html layout. In this way I can use webpack chunkHash for browser cache and I don't need to change the layout.
-
-```bash
-# Install all dependences
-$ cd themes/hugo-nuo
-$ yarn
-
-# Development watch
-$ yarn dev
-
-# Build static files for production
-$ yarn build
-
-# Scripts lint and autofix
-$ yarn eslint
-$ yarn eslint:fix
-
-# Styles lint and autofix
-$ yarn stylelint
-$ yarn stylelint:fix
-
-# Minify images
-$ yarn imagemin
-
-# Clean
-$ yarn clean
-```
+I use Hugo pipes and [PostCSS](https://gohugo.io/hugo-pipes/postcss/) to tranpile CSS, you should install devDependencies in `package.json` first if you want to cutomize the `./assets/styles` css files.
 
 I use [ImageOptim](https://imageoptim.com/) to make images load faster, you should install this app before you run `yarn imagemin` script.
 
