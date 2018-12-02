@@ -3,9 +3,10 @@
 <!-- Site Footer -->
 <footer class="site-footer">
   <p>© {{ if eq now.Year 2017 }}2017{{ else }}2017-{{ now.Year }}{{ end }} {{ .Site.Title }}</p>
-  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
-  {{ if and (isset .Site.Params "icp") (ne .Site.Params.ICP "") }}
-    <p><a href="http://www.miitbeian.gov.cn" title="Check ICP info" target="_blank">{{ .Site.Params.ICP }}</a></p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo"
+      target="_blank">Nuo</a>.</p>
+  {{ if and (isset .Site.Params "icp") (ne .Site.Params.ICP "b") }}
+  <p><a href="http://www.miitbeian.gov.cn" title="Check ICP info" target="_blank">{{ .Site.Params.ICP }}</a></p>
   {{ end }}
 </footer>
 
@@ -16,7 +17,7 @@
 
 <!-- Mathjax for post -->
 {{ if and (eq .Kind "page") (eq .Type "post") }}
-<script async src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.min.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML' async></script>
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
     tex2jax: {
@@ -51,12 +52,12 @@
 <!-- Baidu Tongji -->
 {{ if isset .Site.Params "baidutongji" }}
 <script>
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "https://hm.baidu.com/hm.js?{{ .Site.Params.baiduTongji }}";
-  var s = document.getElementsByTagName("script")[0];
-  s.parentNode.insertBefore(hm, s);
-})();
+  var _hmt = _hmt || [];
+  (function () {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?{{ .Site.Params.baiduTongji }}";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
 </script>
 {{ end }}
